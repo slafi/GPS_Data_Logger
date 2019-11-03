@@ -98,3 +98,64 @@ def disconnect(connection_handler):
     except sqlite3.Error as e:
         logger.error('Database disconnection error: {0}'.format(e))
         return -1
+
+def create_location_table(connection_handler, location_table_name="location", session_table_name="session"):
+    """ Creates a new SQLite database and datatable where the telemetry will be stored
+
+        :param connection_handler: the Connection object
+        :param table_name: the data table name
+        :return: 0 if succes, -1 if the connection handler is None and -2 if exception arises
+    """
+    try:
+        sql = f"""
+                CREATE TABLE IF NOT EXISTS {location_table_name} (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    session_id INTEGER NOT NULL,                    
+                    latitude FLOAT DEFAULT NULL,
+                    longitude FLOAT DEFAULT NULL,
+                    altitude FLOAT DEFAULT NULL,
+                    heading FLOAT DEFAULT NULL,
+                    climb FLOAT DEFAULT NULL,
+                    speed INTEGER DEFAULT NULL,
+                    status NTEGER DEFAULT 0,
+                    utc_time DATETIME,                    
+                    db_timestamp DATETIME DEFAULT (DATETIME(CURRENT_TIMESTAMP)),
+                    FOREIGN KEY(session_id) REFERENCES {session_table_name}(id)
+                );
+               """
+
+        if connection_handler is None:
+            return -1
+
+        connection_handler.cursor().execute(sql)
+        return 0
+
+    except Exception as e:
+        logger.error(f"Exception: {str(e)}")
+        return -2
+
+def create_session_table(connection_handler, session_table_name="session"):
+    """ Creates a new SQLite database and datatable where the telemetry will be stored
+
+        :param connection_handler: the Connection object
+        :param table_name: the data table name
+        :return: 0 if succes, -1 if the connection handler is None and -2 if exception arises
+    """
+    try:
+        sql = f"""
+                CREATE TABLE IF NOT EXISTS {session_table_name} (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,                                       
+                    start_timestamp DATETIME DEFAULT (DATETIME(CURRENT_TIMESTAMP))
+                );
+               """
+
+        if connection_handler is None:
+            return -1
+
+        connection_handler.cursor().execute(sql)
+        return 0
+
+    except Exception as e:
+        logger.error(f"Exception: {str(e)}")
+        return -2
+
