@@ -1,0 +1,10 @@
+{ 
+    "elm_mac_address": "AA:BB:CC:11:22:33",
+    "use_gps": true,
+    "new_session": true,
+    "gps_serial_port" : "",
+    "raw_commands_file" : "./explorer/commands.json",
+    "supported_commands_file" : "./config/supported_commands.json",
+    "database" : "cdl_database.db",
+    "frequency" : 4    
+}
