@@ -37,7 +37,7 @@ def check_connection(db_filename, db_path=""):
             connection_handler.close()
 
 
-def check_if_datatable_exists(connection_handler, table_name="data"):
+def check_if_datatable_exists(connection_handler, table_name):
     """ Query the database to check if the data table already eaxists
 
         :param connection_handler: the Connection object
@@ -117,7 +117,7 @@ def create_location_table(connection_handler, location_table_name="location", se
                     heading FLOAT DEFAULT NULL,
                     climb FLOAT DEFAULT NULL,
                     speed INTEGER DEFAULT NULL,
-                    status NTEGER DEFAULT 0,
+                    mode NTEGER DEFAULT 0,
                     utc_time DATETIME,                    
                     db_timestamp DATETIME DEFAULT (DATETIME(CURRENT_TIMESTAMP)),
                     FOREIGN KEY(session_id) REFERENCES {session_table_name}(id)
@@ -133,6 +133,7 @@ def create_location_table(connection_handler, location_table_name="location", se
     except Exception as e:
         logger.error(f"Exception: {str(e)}")
         return -2
+
 
 def create_session_table(connection_handler, session_table_name="session"):
     """ Creates a new SQLite database and datatable where the telemetry will be stored
@@ -159,3 +160,89 @@ def create_session_table(connection_handler, session_table_name="session"):
         logger.error(f"Exception: {str(e)}")
         return -2
 
+
+def get_newest_session_id(connection_handler, session_tablename="session"):
+    """
+        Returns the latest session identifier
+        
+        :param connection_handler: the connection handler
+        :param session_tablename: the session tablename (default: session)
+        :return: latest identifier or 1, -1 if exception is thrown
+    """
+    try:
+
+        cursor = connection_handler.cursor()
+        cursor.execute(f"SELECT max(id) FROM {session_tablename}")
+        max_id = cursor.fetchone()[0]
+
+        if max_id is None:
+            return 1
+        else:
+            return max_id
+
+    except Exception as e:
+        logger.error(f"Exception: {str(e)}")
+        return -2
+
+
+def create_new_session(connection_handler, session_tablename="session"):
+    """
+        Creates a new session record into the session table
+
+        :param connection_handler: the connection handler
+        :param session_tablename: the session tablename (default: session)
+        :return: last inserted row id, -1 if an exception is thrown
+    """
+    try:
+        
+        timestamp = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+
+        sql = f"INSERT INTO {session_tablename}(start_timestamp)VALUES(?)"
+
+        cursor = connection_handler.cursor()
+        cursor.execute(sql, (timestamp,))
+
+        return cursor.lastrowid
+
+    except Exception as e:
+        logger.error(f"Exception: {str(e)}")
+        return -1
+
+
+def insert_location_data(connection_handler, data, location_table_name="location"):
+    """ Query the database to insert a list of location records into the location the database
+
+        :param connection_handler: the Connection object
+        :param data: the list of telemetry records
+        :param table_name: the data table name
+        :return: count of inserted records or -1 if exception arises
+    """
+    try:
+        cursor = connection_handler.cursor()
+
+        sqlite_insert_query = f"""INSERT INTO `{location_table_name}`
+                                ('session_id', 'latitude', 'longitude', 'altitude', 'heading', 'climb', 'speed', 'mode', 'utc_time') 
+                                VALUES """
+
+        # condition_if_true if condition else condition_if_false
+        for i in range(len(data)):
+            item = data[i]
+
+            insert = f"({item[0]}, {item[1]}, {item[2]}, {item[3]}, {item[4]}, {item[5]}, '{item[6]}', '{item[7]}', '{item[8]}')"
+            sqlite_insert_query = f"{sqlite_insert_query}{insert}"
+
+            if i == len(data)-1:
+                sqlite_insert_query = f"{sqlite_insert_query};"
+            else:
+                sqlite_insert_query = f"{sqlite_insert_query},"
+
+        count = cursor.execute(sqlite_insert_query)
+        connection_handler.commit()
+        cursor.close()
+
+        logger.debug(f"Data rows inserted: {cursor.rowcount}")
+        return count
+
+    except sqlite3.Error as error:
+        logger.error(f"Exception: {str(error)}")
+        return -1

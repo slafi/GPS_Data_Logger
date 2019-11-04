@@ -3,6 +3,8 @@ from multiprocessing import Queue
 # Import custom subpackages
 from config import config
 from helpers import logger, generic
+from binders import gps_device_binder
+from core import recorder
 
 import os
 import sys
@@ -10,7 +12,7 @@ import time
 
 
 # Initialize the logger
-logger = logger.get_logger('voltazero_monitor')
+logger = logger.get_logger('gps_locator')
 
 
 if __name__ == '__main__':
@@ -40,3 +42,34 @@ if __name__ == '__main__':
     else:
         logger.info(f'App configuration loaded and parsed successfully.')
 
+    # Make sure that the GPSD is launched with the appropriate parameters
+    #gps_binder = gps_device_binder.GPSDeviceBinder()
+    #gps_binder.bind()
+
+    # Start GPS device monitor
+    #pmonitor = monitor.Monitor(appConfig, q, client_id="cp100")
+    #pmonitor.start()
+
+    # Start database recorder
+    # Initialize and start database recorder
+    trecorder = recorder.Recorder(q, appConfig)
+    trecorder.start()
+
+    try:
+        # Sleep main thread
+        while True:
+            time.sleep(1)
+
+    except Exception as e:
+        print(f'Exception: {str(e)}')
+
+    except KeyboardInterrupt:
+        logger.info("Stopping all threads and processes... (This may take few seconds)")
+
+        # Stop the monitor process
+        #pmonitor.stop()
+        #pmonitor.join()
+
+        # Stop the recorder thread
+        trecorder.stop()
+        trecorder.join()

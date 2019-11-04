@@ -26,7 +26,10 @@ class AppConfig():
         self.gpsd_port = None
         self.use_gps = None
         self.enable_new_session = None
+        self.database_filename = None
         self.database = None
+        self.session_tablename = None
+        self.location_tablename = None
         self.monitor_frequency = None
         self.recorder_batch_size = None
         self.recorder_interval = None
@@ -68,7 +71,10 @@ class AppConfig():
             self.gpsd_port = data["gpsd_port"]
             self.use_gps = data["use_gps"]
             self.enable_new_session = data["enable_new_session"]
+            self.database_filename = data["database_filename"]
             self.database = data["database"]
+            self.location_tablename = data["location_tablename"]
+            self.session_tablename = data["session_tablename"]
             self.monitor_frequency = data["monitor_frequency"]
             self.recorder_batch_size = data["recorder_batch_size"]
             self.recorder_interval = data["recorder_interval"]

@@ -16,7 +16,7 @@ class GPSDeviceBinder():
 
     ## gpsd [-b ] [-D debuglevel] [-F control-socket] [-f framing] [-G ] [-h ] [-l ] [-n ] [-N ] [-P pidfile] [-r ] [-S listener-port] [-s speed] [-V ] [ [source-name] ...]
     ## sudo gpsd -D 4 -F /var/run/gpsd.sock -P /var/run/gpsd.pid -N -n /dev/ttyAMA0
-    def bind(self, control_socket="/var/run/gpsd.sock", pid_file="/var/run/gpsd.pid", source_name="/dev/ttyAMA0", debug_level=5, listener_port=2947, sudo=False, timeout=15):
+    def bind(self, control_socket="/var/run/gpsd.sock", pid_file="/var/run/gpsd.pid", source_name="/dev/ttyAMA0", debug_level=5, listener_port=2947, sudo=True, timeout=15):
         
         """ Binds the GPSD deamon to a socket file and a device stream.
 

@@ -3,7 +3,10 @@
     "gpsd_port" : 2749,
     "use_gps": true,
     "enable_new_session": true,
-    "database" : "gps_locator.db",
+    "database_filename" : "gps_logger.db",
+    "database" : "gps_logger",
+    "session_tablename" : "session",
+    "location_tablename" : "location",
     "monitor_frequency" : 2,
     "recorder_batch_size" : 100,
     "recorder_interval": 5
