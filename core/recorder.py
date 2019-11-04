@@ -52,11 +52,13 @@ class Recorder(Thread):
                 return -1
             else:
                 # Create the datatables if they do not already exist
+                # Session table
                 if not database.check_if_datatable_exists(connection_handler=self.connection_handler, table_name=self.appconfig.session_tablename):
                 
                     # Create the session datatable structure
                     database.create_session_table(connection_handler=self.connection_handler, session_table_name=self.appconfig.session_tablename)
-
+                
+                # Location table
                 if not database.check_if_datatable_exists(connection_handler=self.connection_handler, table_name=self.appconfig.location_tablename):
                 
                     # Create the location datatable structure

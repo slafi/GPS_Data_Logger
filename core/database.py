@@ -56,8 +56,8 @@ def check_if_datatable_exists(connection_handler, table_name):
         for item in list_of_tables:
             if table_name == item[0]:
                 return True
-            else:
-                return False
+        
+        return False
 
     except sqlite3.Error as error:
         logger.error(f"Exception: {str(error)}")
