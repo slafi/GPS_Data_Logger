@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.7
+
 from multiprocessing import Queue
 
 # Import custom subpackages
