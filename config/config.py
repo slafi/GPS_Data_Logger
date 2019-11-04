@@ -30,7 +30,7 @@ class AppConfig():
         self.database = None
         self.session_tablename = None
         self.location_tablename = None
-        self.monitor_frequency = None
+        self.monitor_delay = None
         self.recorder_batch_size = None
         self.recorder_interval = None
 
@@ -75,7 +75,7 @@ class AppConfig():
             self.database = data["database"]
             self.location_tablename = data["location_tablename"]
             self.session_tablename = data["session_tablename"]
-            self.monitor_frequency = data["monitor_frequency"]
+            self.monitor_delay = data["monitor_delay"]
             self.recorder_batch_size = data["recorder_batch_size"]
             self.recorder_interval = data["recorder_interval"]
 

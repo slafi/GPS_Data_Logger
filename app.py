@@ -6,7 +6,7 @@ from multiprocessing import Queue
 from config import config
 from helpers import logger, generic
 from binders import gps_device_binder
-from core import recorder
+from core import recorder, monitor
 
 import os
 import sys
@@ -47,10 +47,11 @@ if __name__ == '__main__':
     # Make sure that the GPSD is launched with the appropriate parameters
     #gps_binder = gps_device_binder.GPSDeviceBinder()
     #gps_binder.bind()
+    #time.sleep(1)
 
     # Start GPS device monitor
-    #pmonitor = monitor.Monitor(appConfig, q, client_id="cp100")
-    #pmonitor.start()
+    tmonitor = monitor.Monitor(q, appConfig)
+    tmonitor.start()
 
     # Start database recorder
     # Initialize and start database recorder
@@ -69,8 +70,8 @@ if __name__ == '__main__':
         logger.info("Stopping all threads and processes... (This may take few seconds)")
 
         # Stop the monitor process
-        #pmonitor.stop()
-        #pmonitor.join()
+        tmonitor.stop()
+        tmonitor.join()
 
         # Stop the recorder thread
         trecorder.stop()

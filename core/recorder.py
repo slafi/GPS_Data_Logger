@@ -89,7 +89,10 @@ class Recorder(Thread):
 
         if rcode == 0:
 
-            database.create_new_session(self.connection_handler, session_tablename=self.appconfig.session_tablename)
+            self.session_id = 1
+            if self.appconfig.enable_new_session:
+                database.create_new_session(self.connection_handler, session_tablename=self.appconfig.session_tablename)
+            
             self.session_id = database.get_newest_session_id(self.connection_handler, session_tablename=self.appconfig.session_tablename)
 
             # insert data in database

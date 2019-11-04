@@ -7,7 +7,7 @@
     "database" : "gps_logger",
     "session_tablename" : "session",
     "location_tablename" : "location",
-    "monitor_frequency" : 2,
+    "monitor_delay" : 0.5,
     "recorder_batch_size" : 100,
     "recorder_interval": 5
 }
