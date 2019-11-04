@@ -22,7 +22,7 @@ if __name__ == '__main__':
     logger.info(f'Main PID: {os.getpid()}')
 
     # Initialization
-    config_file = "./core/config.json"
+    config_file = "./config/config.json"
 
     # Setup telemetry queue used by the Monitor and Recorder
     q = Queue()

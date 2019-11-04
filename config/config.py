@@ -22,14 +22,14 @@ class AppConfig():
         """
 
         self.config_filename = config_filename
-        self.database = None
-        self.frequency = None
-        self.elm_mac_address = None
+        self.gpsd_ip_address = None
+        self.gpsd_port = None
         self.use_gps = None
-        self.gps_serial_port = None
-        self.raw_commands_file = None
-        self.supported_commands_file = None
-        self.new_session = None
+        self.enable_new_session = None
+        self.database = None
+        self.monitor_frequency = None
+        self.recorder_batch_size = None
+        self.recorder_interval = None
 
     def load_app_config(self):
 
@@ -64,14 +64,14 @@ class AppConfig():
         try:
 
             # Database parameters
-            self.database = data["database"]
-            self.frequency = data["frequency"]
-            self.elm_mac_address = data["elm_mac_address"]
+            self.gpsd_ip_address = data["gpsd_ip_address"]
+            self.gpsd_port = data["gpsd_port"]
             self.use_gps = data["use_gps"]
-            self.gps_serial_port = data["gps_serial_port"]
-            self.raw_commands_file = data["raw_commands_file"]
-            self.supported_commands_file = data["supported_commands_file"]
-            self.new_session = data["new_session"]
+            self.enable_new_session = data["enable_new_session"]
+            self.database = data["database"]
+            self.monitor_frequency = data["monitor_frequency"]
+            self.recorder_batch_size = data["recorder_batch_size"]
+            self.recorder_interval = data["recorder_interval"]
 
             return 0
 

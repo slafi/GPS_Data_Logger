@@ -1,10 +1,10 @@
 { 
-    "elm_mac_address": "AA:BB:CC:11:22:33",
+    "gpsd_ip_address": "127.0.0.1",
+    "gpsd_port" : 2749,
     "use_gps": true,
-    "new_session": true,
-    "gps_serial_port" : "",
-    "raw_commands_file" : "./explorer/commands.json",
-    "supported_commands_file" : "./config/supported_commands.json",
-    "database" : "cdl_database.db",
-    "frequency" : 4    
+    "enable_new_session": true,
+    "database" : "gps_locator.db",
+    "monitor_frequency" : 2,
+    "recorder_batch_size" : 100,
+    "recorder_interval": 5
 }
