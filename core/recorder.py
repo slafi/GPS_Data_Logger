@@ -126,17 +126,20 @@ class Recorder(Thread):
             data = []
             while(i < size and not self.q.empty()):
                 loc = self.q.get()
-
+                
+                arr = []
                 if loc.mode == 2:
                     arr = (self.session_id, loc.latitude, loc.longitude, 'NULL', loc.heading, 'NULL', loc.horizontal_speed, loc.mode, loc.utc_time)
                 elif loc.mode >= 3:
                     arr = (self.session_id, loc.latitude, loc.longitude, loc.altitude, loc.heading, loc.climb, loc.horizontal_speed, loc.mode, loc.utc_time)
 
-                data.append(arr)
-                i = i + 1
+                if arr != []:
+                    data.append(arr)
+                
+                i += 1
 
             if data != []:
-                database.insert_location_data(self.connection_handler, data, location_table_name=self.appconfig.location_table_name)
+                database.insert_location_data(self.connection_handler, data, location_table_name=self.appconfig.location_tablename)
 
             logger.debug(f'Current queue size: {self.q.qsize()}')
             return data

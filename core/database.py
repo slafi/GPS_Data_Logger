@@ -1,5 +1,6 @@
 
 from datetime import datetime
+from core import location
 
 import sqlite3
 import os
@@ -38,7 +39,7 @@ def check_connection(db_filename, db_path=""):
 
 
 def check_if_datatable_exists(connection_handler, table_name):
-    """ Query the database to check if the data table already eaxists
+    """ Query the database to check if the data table already exists
 
         :param connection_handler: the Connection object
         :param table_name: the data table name
@@ -246,3 +247,35 @@ def insert_location_data(connection_handler, data, location_table_name="location
     except sqlite3.Error as error:
         logger.error(f"Exception: {str(error)}")
         return -1
+
+
+def retrieve_data(connection_handler, session_id=-1):
+    """ Retrieves the location data stored in the database
+
+        :param connection_handler: the Connection object
+        :param session_id: the identifier of the related session
+        :return: A list of location objects and None if an exception arises
+    """
+    try:
+
+        # Check the list of tables
+        cursor = connection_handler.cursor()
+        if session_id == -1:
+            cursor.execute(f"SELECT * FROM location;")
+        else:
+            cursor.execute(f"SELECT * FROM location WHERE session_id={session_id};")
+
+        rows = cursor.fetchall()
+
+        cursor.close()
+
+        data=[]
+        for row in rows:
+            loc = location.Location(row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])
+            data.append(loc)
+        
+        return data
+
+    except sqlite3.Error as error:
+        logger.error(f"Exception: {str(error)}")
+        return None
