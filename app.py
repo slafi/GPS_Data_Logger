@@ -55,8 +55,8 @@ if __name__ == '__main__':
 
     # Start database recorder
     # Initialize and start database recorder
-    trecorder = recorder.Recorder(q, appConfig)
-    trecorder.start()
+    #trecorder = recorder.Recorder(q, appConfig)
+    #trecorder.start()
 
     try:
         # Sleep main thread
@@ -74,5 +74,5 @@ if __name__ == '__main__':
         tmonitor.join()
 
         # Stop the recorder thread
-        trecorder.stop()
-        trecorder.join()
+        #trecorder.stop()
+        #trecorder.join()

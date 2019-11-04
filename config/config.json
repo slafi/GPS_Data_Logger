@@ -1,6 +1,6 @@
 { 
     "gpsd_ip_address": "127.0.0.1",
-    "gpsd_port" : 2749,
+    "gpsd_port" : 2947,
     "use_gps": true,
     "enable_new_session": true,
     "database_filename" : "gps_logger.db",

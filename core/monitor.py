@@ -81,7 +81,7 @@ class Monitor(Thread):
                 time.sleep(self.appconfig.monitor_delay)
             
         else:
-            logger.error("Failed to initialize the connection to GPS device")
+            logger.error("Failed to connect to the GPS deamon")
 
 
     def report_current_location(self):
