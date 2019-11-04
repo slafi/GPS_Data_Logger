@@ -107,7 +107,7 @@ class Recorder(Thread):
 
             # close data connection
             database.disconnect(self.connection_handler)
-            self.enabled = False
+            
         else:
             logger.error("Failed to initialize database connection")
 
@@ -151,3 +151,4 @@ class Recorder(Thread):
         """Stops the recorder thread"""
 
         self.running.clear()
+        self.enabled = False

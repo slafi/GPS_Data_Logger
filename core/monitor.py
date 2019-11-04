@@ -77,11 +77,11 @@ class Monitor(Thread):
             # insert data in database
             while (self.running.isSet()):
                 
-                report_current_location()                
+                self.report_current_location()                
                 time.sleep(self.appconfig.monitor_delay)
             
         else:
-            logger.error("Failed to initialize database connection")
+            logger.error("Failed to initialize the connection to GPS device")
 
 
     def report_current_location(self):
@@ -96,10 +96,10 @@ class Monitor(Thread):
         try:
             
             # Get current GPS position
-			packet = gpsd.get_current()
-			
+            packet = gpsd.get_current()
+
             # Unpack location parameters
-			mode = packet.mode
+            mode = packet.mode
             latitude = packet.lat
             longitude = packet.lon
             utc_time = packet.time
@@ -108,8 +108,8 @@ class Monitor(Thread):
 
             altitude = None
             climb = None
-
-			if packet.mode == 3:
+            
+            if packet.mode == 3:
                 altitude = packet.alt
                 climb = packet.climb
 
