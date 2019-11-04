@@ -127,7 +127,11 @@ class Recorder(Thread):
             while(i < size and not self.q.empty()):
                 loc = self.q.get()
 
-                arr = (self.session_id, loc.latitude, loc.longitude, loc.altitude, loc.heading, loc.climb, loc.horizontal_speed, loc.mode, loc.utc_time)
+                if loc.mode == 2:
+                    arr = (self.session_id, loc.latitude, loc.longitude, 'NULL', loc.heading, 'NULL', loc.horizontal_speed, loc.mode, loc.utc_time)
+                elif loc.mode >= 3:
+                    arr = (self.session_id, loc.latitude, loc.longitude, loc.altitude, loc.heading, loc.climb, loc.horizontal_speed, loc.mode, loc.utc_time)
+
                 data.append(arr)
                 i = i + 1
 
