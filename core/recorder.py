@@ -7,7 +7,7 @@ import time
 import logging
 
 
-# Initialize logger for the module
+# Get the current logger object
 logger = logging.getLogger(__name__)
 
 
@@ -44,24 +44,24 @@ class Recorder(Thread):
         """Initializes the database connection"""
 
         try:
-            # Attempt to connect to database (create database if does not already exist)
+            # attempt to connect to database (create database if does not already exist)
             self.connection_handler = database.connect(db_filename=self.appconfig.database_filename)
 
-            # If no connection handler, then give up
+            # if no connection handler, then give up
             if self.connection_handler is None:
                 return -1
             else:
-                # Create the datatables if they do not already exist
-                # Session table
+                # create the datatables if they do not already exist
+                # session table
                 if not database.check_if_datatable_exists(connection_handler=self.connection_handler, table_name=self.appconfig.session_tablename):
                 
-                    # Create the session datatable structure
+                    # create the session datatable structure
                     database.create_session_table(connection_handler=self.connection_handler, session_table_name=self.appconfig.session_tablename)
                 
-                # Location table
+                # location table
                 if not database.check_if_datatable_exists(connection_handler=self.connection_handler, table_name=self.appconfig.location_tablename):
                 
-                    # Create the location datatable structure
+                    # create the location datatable structure
                     database.create_location_table(connection_handler=self.connection_handler, location_table_name=self.appconfig.location_tablename, session_table_name=self.appconfig.session_tablename)
 
             return 0
@@ -84,7 +84,7 @@ class Recorder(Thread):
 
         """ Runs the recorder infinite loop """
 
-        # Opens database connection
+        # opens database connection
         rcode = self.init_connection()
 
         if rcode == 0:
@@ -100,7 +100,7 @@ class Recorder(Thread):
                 self.insert_batch(self.appconfig.recorder_batch_size)
                 time.sleep(self.appconfig.recorder_interval)
 
-            # Store the remaning telemetry records in queue before
+            # store the remaning telemetry records in queue before
             # closing connection
             if(self.enabled and not self.q.empty()):
                 self.insert_batch(1000)

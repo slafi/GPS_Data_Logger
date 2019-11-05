@@ -2,7 +2,7 @@ import subprocess
 import logging
 
 
-# Initialize logger for the module
+# Get the current logger object
 logger = logging.getLogger(__name__)
 
 
@@ -61,4 +61,3 @@ class GPSDeviceBinder():
         """ Removes a current binding with another device.
         """
         pass
-        

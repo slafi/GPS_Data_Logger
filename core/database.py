@@ -7,13 +7,13 @@ import os
 import logging
 
 
-# Initialize logger for the module
+# Get the current logger object
 logger = logging.getLogger(__name__)
 
 
 # Initializes the database connection
 def check_connection(db_filename, db_path=""):
-    """ Checks if it is possible to establish a connection to the database
+    """ Checks if it is possible to establish a connection to the SQLite database
 
         :param db_filename: database filename
         :param db_path: the path to the database file
@@ -23,25 +23,25 @@ def check_connection(db_filename, db_path=""):
         if db_filename is not None:
             db_name = os.path.join(db_path, db_filename)
             connection_handler = connect(db_name)
+
             if connection_handler is not None:
                 return True
-            else:
-                return False
-        else:
-            return False
+
+        return False
 
     except sqlite3.Error as e:
         logger.error('Database connection error: {0}'.format(e))
         return False
+
     finally:
         if connection_handler:
             connection_handler.close()
 
 
 def check_if_datatable_exists(connection_handler, table_name):
-    """ Query the database to check if the data table already exists
+    """ Query the database to check if the datatable already exists
 
-        :param connection_handler: the Connection object
+        :param connection_handler: the connection handler object
         :param table_name: the data table name
         :return: True if exists and False if does not exist or exception arises
     """
@@ -67,19 +67,22 @@ def check_if_datatable_exists(connection_handler, table_name):
 
 # Open a new connection handler to the database
 def connect(db_filename, db_path=""):
+
     """ Creates a database connection handler to the SQLite database
-        specified by the db_filename
+        specified by the db_filename parameter
 
         :param db_filename: database filename
         :param db_path: the path to the database file
-        :return: Connection object or None
+        :return: a connection object or None
     """
+
     try:
         db_name = os.path.join(db_path, db_filename)
         connection_handler = sqlite3.connect(db_name)
         connection_handler.text_factory = sqlite3.OptimizedUnicode
 
         return connection_handler
+
     except sqlite3.Error as e:
         logger.error('Database connection error: {0}'.format(e))
         return None
@@ -87,26 +90,33 @@ def connect(db_filename, db_path=""):
 
 # Closes the ongoing database connection if still alive
 def disconnect(connection_handler):
+
     """ Closes a current database connection
 
-        :param connection_handler: the Connection object
+        :param connection_handler: the connection handler object
         :return: 0 if success and -1 if an exception arises
     """
+
     try:
+
         if connection_handler is not None:
             connection_handler.close()
         return 0
+
     except sqlite3.Error as e:
         logger.error('Database disconnection error: {0}'.format(e))
         return -1
 
-def create_location_table(connection_handler, location_table_name="location", session_table_name="session"):
-    """ Creates a new SQLite database and datatable where the telemetry will be stored
 
-        :param connection_handler: the Connection object
-        :param table_name: the data table name
+def create_location_table(connection_handler, location_table_name="location", session_table_name="session"):
+
+    """ Creates a new SQLite database and a location datatable where the location data will be stored
+
+        :param connection_handler: the Cconnection handler object
+        :param table_name: the datatable name
         :return: 0 if succes, -1 if the connection handler is None and -2 if exception arises
     """
+
     try:
         sql = f"""
                 CREATE TABLE IF NOT EXISTS {location_table_name} (
@@ -137,12 +147,14 @@ def create_location_table(connection_handler, location_table_name="location", se
 
 
 def create_session_table(connection_handler, session_table_name="session"):
-    """ Creates a new SQLite database and datatable where the telemetry will be stored
 
-        :param connection_handler: the Connection object
+    """ Creates a new SQLite database and session datatable where the session info will be stored
+
+        :param connection_handler: the connection handler object
         :param table_name: the data table name
         :return: 0 if succes, -1 if the connection handler is None and -2 if exception arises
     """
+
     try:
         sql = f"""
                 CREATE TABLE IF NOT EXISTS {session_table_name} (
@@ -163,6 +175,7 @@ def create_session_table(connection_handler, session_table_name="session"):
 
 
 def get_newest_session_id(connection_handler, session_tablename="session"):
+
     """
         Returns the latest session identifier
         
@@ -170,6 +183,7 @@ def get_newest_session_id(connection_handler, session_tablename="session"):
         :param session_tablename: the session tablename (default: session)
         :return: latest identifier or 1, -1 if exception is thrown
     """
+
     try:
 
         cursor = connection_handler.cursor()
@@ -177,7 +191,7 @@ def get_newest_session_id(connection_handler, session_tablename="session"):
         max_id = cursor.fetchone()[0]
 
         if max_id is None:
-            return 1
+            return 1        # In this case, the session table exists but is empty
         else:
             return max_id
 
@@ -187,13 +201,15 @@ def get_newest_session_id(connection_handler, session_tablename="session"):
 
 
 def create_new_session(connection_handler, session_tablename="session"):
+
     """
-        Creates a new session record into the session table
+        Creates a new session record into the session datatable
 
         :param connection_handler: the connection handler
         :param session_tablename: the session tablename (default: session)
         :return: last inserted row id, -1 if an exception is thrown
     """
+
     try:
         
         timestamp = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
@@ -211,13 +227,15 @@ def create_new_session(connection_handler, session_tablename="session"):
 
 
 def insert_location_data(connection_handler, data, location_table_name="location"):
+
     """ Query the database to insert a list of location records into the location the database
 
-        :param connection_handler: the Connection object
+        :param connection_handler: the connection handler object
         :param data: the list of telemetry records
         :param table_name: the data table name
         :return: count of inserted records or -1 if exception arises
     """
+
     try:
         cursor = connection_handler.cursor()
 
@@ -250,12 +268,14 @@ def insert_location_data(connection_handler, data, location_table_name="location
 
 
 def retrieve_data(connection_handler, session_id=-1):
+
     """ Retrieves the location data stored in the database
 
-        :param connection_handler: the Connection object
+        :param connection_handler: the connection handler object
         :param session_id: the identifier of the related session
         :return: A list of location objects and None if an exception arises
     """
+
     try:
 
         # Check the list of tables
@@ -279,3 +299,4 @@ def retrieve_data(connection_handler, session_id=-1):
     except sqlite3.Error as error:
         logger.error(f"Exception: {str(error)}")
         return None
+

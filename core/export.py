@@ -1,16 +1,24 @@
 from datetime import datetime
 from core import location
 
-import logging
 import simplekml
+import logging
 
 
-# Initialize logger for the module
+# Get the current logger object
 logger = logging.getLogger(__name__)
 
 
 def save_as_gpx(filename, data):
     
+    """
+        Saves location info retrieved from the database as a GPX file
+
+        :param filename: output GPX filename
+        :param data: retrieved location data
+        :return: 0 if success and -1 if failure or an exception arises
+    """
+
     try:
 
         header = f"""<?xml version="1.0" encoding="UTF-8"?>\n""" \
@@ -32,11 +40,24 @@ def save_as_gpx(filename, data):
             
             outfile.write(footer)
 
+        return 0
+
     except Exception as e:
         logger.error(f'Exception: {str(e)}')
+        return -1
 
 
 def save_as_kml(filename, data, name="", description=""):
+
+    """
+        Saves location info retrieved from the database as a KML file
+
+        :param filename: output KML filename
+        :param data: retrieved location data
+        :param name: name given to the location data 
+        :param description: a description of the location data
+        :return: 0 if success and -1 if failure or an exception arises
+    """
     
     try:
         kml = simplekml.Kml()
@@ -45,7 +66,9 @@ def save_as_kml(filename, data, name="", description=""):
         for loc in data:
             coords.append((loc.latitude, loc.longitude))
 
-        kml.newlinestring(name=name, description=description, coords=coords)
+        linestring = kml.newlinestring(name=name, description=description, coords=coords)
+        linestring.altitudemode = simplekml.AltitudeMode.relativetoground
+        linestring.extrude = 1
 
         outfile = filename
         n = len(filename)

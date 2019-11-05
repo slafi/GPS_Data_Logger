@@ -3,7 +3,7 @@ import os
 import logging
 
 
-# Initialize logger for the module
+# Get the current logger object
 logger = logging.getLogger(__name__)
 
 
