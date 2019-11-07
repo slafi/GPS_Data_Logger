@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
     # Make sure that the GPSD is launched with the appropriate parameters
     if appConfig.start_gpsd:
-        gps_binder = gps_device_binder.GPSDeviceBinder()
+        gps_binder = gps_device_binder.GPSDeviceBinder(source_name="/dev/ttyACM0")
         gps_binder.bind()
         time.sleep(1)
 

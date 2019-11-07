@@ -54,6 +54,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Software Requirements
 
 For both Ubuntu and Raspbian, the following tools should be installed:
+
 * `gpsd` : the GPSD service
 * `gpsd-clients` : a [client package for GPSD](https://www.mankier.com/package/gpsd-clients) including *cgps* and *xgps*
 * `python-gps` : a GPSD library for Python
@@ -61,7 +62,9 @@ For both Ubuntu and Raspbian, the following tools should be installed:
 ```console
 pi@raspberrypi:~ $ sudo apt-get install gpsd gpsd-clients python-gps
 ```
+
 Other optional software tools for visualizing, dumping and converting GPS data can also be installed. For example, one can install:
+
 * `foxtrotgps` : a [tool](https://www.foxtrotgps.org/) for real-time GPS navigation, track logging and trip planning
 * `gpsbabel` : a [tool](https://www.gpsbabel.org/index.html) for GPS data conversion
 
@@ -74,7 +77,7 @@ Any GPS device that is compatible with the [official GPSD release](https://gpsd.
 
 ## Application Deployment
 
-Explain how to run the automated tests for this system
+Prior to running this project, the GPSD service should be properly configured, up and running.
 
 ### GPSD Configuration
 
@@ -83,11 +86,13 @@ Before running the application, the GPSD service should be running. The service 
 ```console
 gpsd [-b ] [-D debuglevel] [-F control-socket] [-f framing] [-G ] [-h ] [-l ] [-n ] [-N ] [-P pidfile] [-r ] [-S listener-port] [-s speed] [-V ] [ [source-name] ...]
 ```
+
 I use this minimalist command to configure and run the GPSD service:
 
 ```console
-pi@raspberrypi:~ $ sudo gpsd -D 4 -F /var/run/gpsd.sock -P /var/run/gpsd.pid -N -n /dev/ttyAMA0
+pi@raspberrypi:~ $ sudo gpsd -D 4 -F /var/run/gpsd.sock -P /var/run/gpsd.pid -N -n /dev/ttyACM0
 ```
+
 For more information about the GPSD configuration, please refer to the [official documentation](https://gpsd.gitlab.io/gpsd/gpsd.html).
 
 To check that the GPSD is up and running, one can use the command:
@@ -109,7 +114,8 @@ To run the application, the following steps are recommended:
 ```console
 pi@raspberrypi:~ $ python3 app.py
 ```
-To stop the application, the key combination `CTRL + C` is enough.
+
+To stop the application, the key combination `CTRL + C` can be used.
 
 ## Built With
 
@@ -123,4 +129,3 @@ To stop the application, the key combination `CTRL + C` is enough.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
