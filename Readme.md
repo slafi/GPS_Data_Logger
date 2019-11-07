@@ -56,13 +56,18 @@ The location data stored in the database consists of the following fields:
 |:----------:|:------------- |:------:|
 | latitude | Latitude in degrees | deg. |
 | longitude | Longitude in degrees   | deg. |
-| altitude | Altitude in feet   | feet |
+| altitude | Altitude in meters   | m |
 | heading | Course over ground, degrees from true north   | degrees |
 | climb | Vertical speed : climb (positive) or sink (negative) rate, meters per second   | m/s |
-| speed |    Speed over ground, meters per second   |   m/s |
+| speed | Speed over ground, meters per second   |   m/s |
 | mode | Indicates the status of the GPS reception |  |
 | utc_time | Full date/time string in ISO8601 format (UTC). | '%Y-%m-%dT%H:%M:%S.%fZ' |
 | db_timestamp | Full date/time string of record storage to the database, according to local timezone. | '%Y-%m-%d %H:%M:%S' |
+
+The database schema is illustrated below:
+
+![Database schema](resources/gps_logger_db_schema.png)
+*The GPS Data logger database schema.*
 
 ## Prerequisites
 
