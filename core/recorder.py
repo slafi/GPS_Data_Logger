@@ -105,6 +105,9 @@ class Recorder(Thread):
             if(self.enabled and not self.q.empty()):
                 self.insert_batch(1000)
 
+            # report the timestamp of the current session end
+            database.update_session_end_timestamp(self.connection_handler, self.session_id, session_tablename=self.appconfig.session_tablename)
+
             # close data connection
             database.disconnect(self.connection_handler)
             
