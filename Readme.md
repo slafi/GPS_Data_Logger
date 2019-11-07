@@ -59,7 +59,7 @@ For both Ubuntu and Raspbian, the following tools should be installed:
 * `python-gps` : a GPSD library for Python
 
 ```console
-sudo apt-get install gpsd gpsd-clients python-gps
+pi@raspberrypi:~ $ sudo apt-get install gpsd gpsd-clients python-gps
 ```
 Other optional software tools for visualizing, dumping and converting GPS data can also be installed. For example, one can install:
 * `foxtrotgps` : a [tool](https://www.foxtrotgps.org/) for real-time GPS navigation, track logging and trip planning
