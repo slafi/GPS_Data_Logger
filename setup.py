@@ -4,7 +4,7 @@ with open("Readme.md", 'r') as f:
     long_description = f.read()
 
 setup(
-   name='Car_Data_logger',
+   name='GPS_Data_logger',
    version='1.0',
    description='This project implements a data logger which connects to a GPS device and stores the real-time location info to a SQLite database. It also allows to export saved data as GPX and KML files.',
    author='Sabeur Lafi',
@@ -12,8 +12,8 @@ setup(
    url="https://github.com/slafi",
    license="MIT",
    long_description=long_description,
-   packages=['car_data_logger'],
-   keywords=["data logger", "GPS data logger", "vk-162", "GPS tracking", "GPX", "KML"],
+   packages=['gps_data_logger'],
+   keywords=["GPS data logger", "GPS tracking", "vk-162", "GPS logger", "GPX", "KML", "GPS tracking", "GPS"],
    classifiers=[
        "Programming Language :: Python",
        "Programming Language :: Python :: 3",
