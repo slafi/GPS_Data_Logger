@@ -129,7 +129,7 @@ def create_location_table(connection_handler, location_table_name="location", se
                     climb FLOAT DEFAULT NULL,
                     speed INTEGER DEFAULT NULL,
                     mode NTEGER DEFAULT 0,
-                    utc_time DATETIME,                    
+                    utc_time DATETIME DEFAULT NULL,                    
                     db_timestamp DATETIME DEFAULT (DATETIME(CURRENT_TIMESTAMP)),
                     FOREIGN KEY(session_id) REFERENCES {session_table_name}(id)
                 );
@@ -159,7 +159,8 @@ def create_session_table(connection_handler, session_table_name="session"):
         sql = f"""
                 CREATE TABLE IF NOT EXISTS {session_table_name} (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,                                       
-                    start_timestamp DATETIME DEFAULT (DATETIME(CURRENT_TIMESTAMP))
+                    start_timestamp DATETIME DEFAULT (DATETIME(CURRENT_TIMESTAMP)),
+                    end_timestamp DATETIME DEFAULT NULL
                 );
                """
 
@@ -300,3 +301,29 @@ def retrieve_data(connection_handler, session_id=-1):
         logger.error(f"Exception: {str(error)}")
         return None
 
+
+def update_session_end_timestamp(connection_handler, session_id, session_tablename="session"):
+
+    """
+        Updates the given session record by setting the end timestamp
+
+        :param connection_handler: the connection handler
+        :param session_id: the session identifier
+        :param session_tablename: the session tablename (default: session)
+        :return: last inserted row id, -1 if an exception is thrown
+    """
+
+    try:
+        
+        timestamp = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+
+        sql = f"UPDATE {session_tablename} SET end_timestamp = ? WHERE id = ?"
+
+        cursor = connection_handler.cursor()
+        cursor.execute(sql, (timestamp, session_id, ))
+
+        return cursor.lastrowid
+
+    except Exception as e:
+        logger.error(f"Exception: {str(e)}")
+        return -1

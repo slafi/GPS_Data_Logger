@@ -116,7 +116,8 @@ class Monitor(Thread):
             loc = location.Location(latitude=latitude, longitude=longitude, altitude=altitude, heading=track, \
                 climb=climb, horizontal_speed=hspeed, mode=mode, utc_time=utc_time)
             
-            print(str(loc))         # TODO: remove after DEBUG
+            logger.debug(str(loc))         # TODO: remove after DEBUG
+            
             # Put the location instance in the shared queue
             self.q.put(loc)
 

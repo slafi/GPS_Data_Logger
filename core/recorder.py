@@ -141,6 +141,7 @@ class Recorder(Thread):
             if data != []:
                 database.insert_location_data(self.connection_handler, data, location_table_name=self.appconfig.location_tablename)
 
+            # TODO: remove when debugging is done
             logger.debug(f'Current queue size: {self.q.qsize()}')
             return data
 

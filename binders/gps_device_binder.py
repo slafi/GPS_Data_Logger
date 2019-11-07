@@ -20,11 +20,11 @@ class GPSDeviceBinder():
         
         """ Binds the GPSD deamon to a socket file and a device stream.
 
-            :param control_socket: Create a control socket for device addition and removal commands
-            :param pid_file: Specify the name and path to record the daemon's process ID
+            :param control_socket: creates a control socket for device addition and removal commands
+            :param pid_file: specifies the name and path to record the daemon's process ID
             :param source_name: the GPS device's stream
             :param debug_level: the maximum time period required for the process before it fails
-            :param listener_port: Set TCP/IP port on which to listen for GPSD clients (default is 2947)
+            :param listener_port: sets TCP/IP port on which to listen for GPSD clients (default is 2947)
             :param sudo: a flag indicating if the command is executed with root privileges
             :param timeout: the maximum time period required for the process before it fails
             :return : an integer return code
@@ -58,6 +58,5 @@ class GPSDeviceBinder():
 
     def release(self):
 
-        """ Removes a current binding with another device.
-        """
+        """ Removes a current binding with another device."""
         pass
