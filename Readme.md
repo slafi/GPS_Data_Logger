@@ -58,7 +58,7 @@ For both Ubuntu and Raspbian, the following tools should be installed:
 * `gpsd-clients` : a [client package for GPSD](https://www.mankier.com/package/gpsd-clients) including *cgps* and *xgps*
 * `python-gps` : a GPSD library for Python
 
-```bash
+```console
 sudo apt-get install gpsd gpsd-clients python-gps
 ```
 Other optional software tools for visualizing, dumping and converting GPS data can also be installed. For example, one can install:
@@ -106,7 +106,7 @@ To run the application, the following steps are recommended:
 1. Alter the parameters in the [config.json](./config/config.json) file as desired.
 2. Run the command:
 
-```
+```console
 pi@raspberrypi:~ $ python3 app.py
 ```
 To stop the application, the key combination `CTRL + C` is enough.
