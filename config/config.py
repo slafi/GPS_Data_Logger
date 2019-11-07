@@ -24,7 +24,7 @@ class AppConfig():
         self.config_filename = config_filename
         self.gpsd_ip_address = None
         self.gpsd_port = None
-        self.use_gps = None
+        self.start_gpsd = None
         self.enable_new_session = None
         self.database_filename = None
         self.database = None
@@ -69,7 +69,7 @@ class AppConfig():
             # Database parameters
             self.gpsd_ip_address = data["gpsd_ip_address"]
             self.gpsd_port = data["gpsd_port"]
-            self.use_gps = data["use_gps"]
+            self.start_gpsd = data["start_gpsd"]
             self.enable_new_session = data["enable_new_session"]
             self.database_filename = data["database_filename"]
             self.database = data["database"]

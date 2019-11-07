@@ -45,9 +45,10 @@ if __name__ == '__main__':
         logger.info(f'App configuration loaded and parsed successfully.')
 
     # Make sure that the GPSD is launched with the appropriate parameters
-    #gps_binder = gps_device_binder.GPSDeviceBinder()
-    #gps_binder.bind()
-    #time.sleep(1)
+    if appConfig.start_gpsd:
+        gps_binder = gps_device_binder.GPSDeviceBinder()
+        gps_binder.bind()
+        time.sleep(1)
 
     # Start GPS device monitor
     tmonitor = monitor.Monitor(q, appConfig)
