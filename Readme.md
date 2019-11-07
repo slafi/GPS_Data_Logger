@@ -31,7 +31,7 @@ In addition to these threads, the application (especially the Monitor thread) re
 
 ### Configuration Parameters
 
-What things you need to install the software and how to install them
+The application can be configured by altering the [JSON file](./config/config.json) in the `config` folder. The available parameters are the following:
 
 | Parameter        | Description           | Default Value  |
 |:-------------:|:------------- |:-----:|
@@ -47,6 +47,22 @@ What things you need to install the software and how to install them
 | monitor_delay | The time interval of the monitor thread | 0.5 |
 | recorder_batch_size | The maximum number of data records stored simultaneously in the database | 100 |
 | recorder_interval | The time interval of the recorder thread | 5 |
+
+### Location Information
+
+The location data stored in the database consists of the following fields:
+
+| Field   |      Description      |  Unit/Format |
+|:----------:|:------------- |:------:|
+| latitude | Latitude in degrees | deg. |
+| longitude | Longitude in degrees   | deg. |
+| altitude | Altitude in feet   | feet |
+| heading | Course over ground, degrees from true north   | degrees |
+| climb | Vertical speed : climb (positive) or sink (negative) rate, meters per second   | m/s |
+| speed |    Speed over ground, meters per second   |   m/s |
+| mode | Indicates the status of the GPS reception |  |
+| utc_time | Full date/time string in ISO8601 format (UTC). | '%Y-%m-%dT%H:%M:%S.%fZ' |
+| db_timestamp | Full date/time string of record storage to the database, according to local timezone. | '%Y-%m-%d %H:%M:%S' |
 
 ## Prerequisites
 
