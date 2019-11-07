@@ -38,6 +38,7 @@ What things you need to install the software and how to install them
 | gpsd_ip_address      | The GPSD server IP address (or hostname) | 127.0.0.1 |
 | gpsd_port     | The GPSD server TCP port |   2947 |
 | start_gpsd | A flag indicating if the application should automatically start the GPSD server (This is useful especially if the GPSD service startup is set to manual)  | true |
+| default_device | The default port to which the USB GPS device is attached  | "/dev/ttyACM0" |
 | enable_new_session | A flag indicating that every time the application starts, it creates a new session | true |
 | database_filename | The SQLite database filename and path | gps_logger.db |
 | database | The name of the SQLite database | gps_logger |
