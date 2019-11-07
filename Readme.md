@@ -126,12 +126,26 @@ pi@raspberrypi:~ $ cgps
 ![cgps Screenshot](resources/cgps_screenshot.png) \
 *Running cgps command is expected to show the current device's location.*
 
+### Dependencies
+
+The GPS Data Logger requires the installation of two Python packages:
+
+1. [`gpsd-py3`](https://github.com/MartijnBraam/gpsd-py3): a Python GPSD client
+2. [`simplekml`](https://simplekml.readthedocs.io/en/latest/): a Python package for the generation of KML/KMZ files
+
+To install the required dependencies, the following command can be used:
+
+```console
+pi@raspberrypi:~ $ pip install -r requirements.txt
+```
+
 ### Running the Application
 
 To run the application, the following steps are recommended:
 
-1. Alter the parameters in the [config.json](./config/config.json) file as desired.
-2. Run the command:
+1. Install the required dependencies,
+2. Alter the parameters in the [config.json](./config/config.json) file as desired, then
+3. Run the command:
 
 ```console
 pi@raspberrypi:~ $ python3 app.py
