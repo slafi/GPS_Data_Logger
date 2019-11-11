@@ -1,7 +1,7 @@
 { 
     "gpsd_ip_address": "127.0.0.1",
     "gpsd_port" : 2947,
-    "start_gpsd": true,
+    "start_gpsd": false,
     "default_device": "/dev/ttyACM0",
     "enable_new_session": true,
     "database_filename" : "gps_logger.db",

@@ -119,6 +119,7 @@ class Monitor(Thread):
             
             # Put the location instance in the shared queue
             self.q.put(loc)
+            print(str(loc))
 
             return 0
 
