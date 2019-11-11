@@ -42,7 +42,7 @@ class Monitor(Thread):
 
     def init_connection(self):
 
-        """Initializes the database connection"""
+        """Initializes the connection to the GPSD service"""
 
         try:
             
@@ -58,7 +58,7 @@ class Monitor(Thread):
 
     def start(self):
 
-        """Starts the recorder thread"""
+        """Starts the monitor thread"""
 
         self.running.set()
         self.enabled = True
@@ -67,7 +67,7 @@ class Monitor(Thread):
 
     def run(self):
 
-        """ Runs the recorder infinite loop """
+        """ Runs the monitor infinite loop """
 
         # Opens database connection
         rcode = self.init_connection()
@@ -86,11 +86,10 @@ class Monitor(Thread):
 
     def report_current_location(self):
 
-        """ Checks if it is possible to establish a connection to the database
+        """ Gets the current location data from the GPSD and reports it to
+            the shared queue as a Location object
 
-        :param size: maximum number of items to save in the database at once
-        :return: list of telemetry records to insert in the database
-                 if success or None if failure or an exception arises
+            :return: 0 if success or -1 if failure or an exception arises
         """
 
         try:
@@ -130,7 +129,7 @@ class Monitor(Thread):
 
     def stop(self):
 
-        """Stops the recorder thread"""
+        """Stops the monitor thread"""
 
         self.running.clear()
 

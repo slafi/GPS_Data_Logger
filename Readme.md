@@ -103,7 +103,14 @@ Prior to running this project, the GPSD service should be properly configured, u
 
 ### GPSD Configuration
 
-Before running the application, the GPSD service should be running. The service can be typically parametrized as follows:
+If the GPSD service is not already installed, the following commands will install it:
+
+```console
+pi@raspberrypi:~ $ sudo apt-get update
+pi@raspberrypi:~ $ sudo apt-get install gpsd gpsd-clients python-gps
+```
+
+Once installed, the GPSD service can be typically parametrized as follows:
 
 ```console
 gpsd [-b ] [-D debuglevel] [-F control-socket] [-f framing] [-G ] [-h ] [-l ] [-n ] [-N ] [-P pidfile] [-r ] [-S listener-port] [-s speed] [-V ] [ [source-name] ...]
@@ -143,14 +150,15 @@ pi@raspberrypi:~ $ pip install -r requirements.txt
 
 To run the application, the following steps are recommended:
 
-1. Install the required dependencies,
-2. Alter the parameters in the [config.json](./config/config.json) file as desired, then
-3. Run the command:
+1. Run the GPSD service with the appropriate parameters, if not already running,
+2. Install the required dependencies,
+3. Alter the parameters in the [config.json](./config/config.json) file as desired, then
+4. Run the command:
 
 ```console
 pi@raspberrypi:~ $ python3 app.py
 ```
-
+1111
 To stop the application, the key combination `CTRL + C` can be used.
 
 ## Built With
