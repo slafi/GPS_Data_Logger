@@ -23,17 +23,19 @@ class Recorder(Thread):
         :param enabled: a flag indicating if the monitor is enabled
     """
 
-    def __init__(self, q, appconfig):
+    def __init__(self, q, appconfig, name=""):
 
         """ Initializes the recorder object
 
         :param q: the telemetry data queue
         :param appconfig: the application configuration object
+        :param name: a name that can be attributed to the monitor
         """
 
         Thread.__init__(self)
         self.running = Event()
-        self.id = currentThread().getName()
+        if name != "":
+            self.id = name
         self.q = q
         self.appconfig = appconfig
         self.enabled = False
