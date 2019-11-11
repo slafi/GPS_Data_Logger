@@ -317,10 +317,11 @@ def update_session_end_timestamp(connection_handler, session_id, session_tablena
         
         timestamp = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 
-        sql = f"UPDATE {session_tablename} SET end_timestamp = ? WHERE id = ?"
+        sql = f"UPDATE {session_tablename} SET end_timestamp = '{timestamp}' WHERE id = {session_id}"
 
         cursor = connection_handler.cursor()
-        cursor.execute(sql, (timestamp, session_id, ))
+        cursor.execute(sql)
+        connection_handler.commit()
 
         return cursor.lastrowid
 
