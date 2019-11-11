@@ -158,7 +158,7 @@ To run the application, the following steps are recommended:
 ```console
 pi@raspberrypi:~ $ python3 app.py
 ```
-1111
+
 To stop the application, the key combination `CTRL + C` can be used.
 
 ## Built With
