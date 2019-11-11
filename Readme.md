@@ -103,14 +103,7 @@ Prior to running this project, the GPSD service should be properly configured, u
 
 ### GPSD Configuration
 
-If the GPSD service is not already installed, the following commands will install it:
-
-```console
-pi@raspberrypi:~ $ sudo apt-get update
-pi@raspberrypi:~ $ sudo apt-get install gpsd gpsd-clients python-gps
-```
-
-Once installed, the GPSD service can be typically parametrized as follows:
+The GPSD service can be typically parametrized as follows:
 
 ```console
 gpsd [-b ] [-D debuglevel] [-F control-socket] [-f framing] [-G ] [-h ] [-l ] [-n ] [-N ] [-P pidfile] [-r ] [-S listener-port] [-s speed] [-V ] [ [source-name] ...]
