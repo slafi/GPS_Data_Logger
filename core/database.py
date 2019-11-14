@@ -304,8 +304,7 @@ def retrieve_data(connection_handler, session_id=-1):
 
 def update_session_end_timestamp(connection_handler, session_id, session_tablename="session"):
 
-    """
-        Updates the given session record by setting the end timestamp
+    """ Updates the given session record by setting the end timestamp
 
         :param connection_handler: the connection handler
         :param session_id: the session identifier
