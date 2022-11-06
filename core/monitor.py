@@ -20,13 +20,13 @@ class Monitor(Thread):
         :param running: an event controlling the process operation
         :param appconfig: the application configuration object
         :param q: the telemetry data queue
-        :param id: the recorder thread identifier
+        :param id: the monitor thread identifier
         :param enabled: a flag indicating if the monitor is enabled
     """
 
     def __init__(self, q, appconfig, name=""):
 
-        """ Initializes the recorder object
+        """ Initializes the monitor object
 
         :param q: the telemetry data queue
         :param appconfig: the application configuration object
