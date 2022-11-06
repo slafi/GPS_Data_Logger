@@ -44,9 +44,9 @@ The application can be configured by altering the [JSON file](./config/config.js
 | database | The name of the SQLite database | gps_logger |
 | session_tablename | The name of the session datatable | session |
 | location_tablename | The name of the location datatable      | location |
-| monitor_delay | The time interval of the monitor thread | 0.5 |
+| monitor_delay | The time interval of the monitor thread, in seconds | 0.5 |
 | recorder_batch_size | The maximum number of data records stored simultaneously in the database | 100 |
-| recorder_interval | The time interval of the recorder thread | 5 |
+| recorder_interval | The time interval of the recorder thread, in seconds | 5 |
 
 ### Location Information
 
